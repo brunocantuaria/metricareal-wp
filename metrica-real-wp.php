@@ -17,14 +17,14 @@ function metrica_real_admin_setup() {
     add_management_page('Métrica Real', 'Métrica Real', 'manage_options', 'metrica-real', 'metrica_real_admin_page');
 	
 }
-add_action('admin_init', 'metrica_real_admin_setup');
+add_action('admin_menu', 'metrica_real_admin_setup');
 
 function metrica_real_admin_page() {
 
     ?>
     <div class="health-check-header metrica-real">
-        <div class="health-check-title-section">
-            <img src="<?php echo plugin_dir_url( __FILE__ ); ?>/assets/img/logo.png" width="300" alt="Métrica Real" />
+        <div class="health-check-title-section" style="flex-direction: column">
+            <img src="<?php echo plugin_dir_url( __FILE__ ); ?>/assets/img/logo.png" width="300" alt="Métrica Real" style="margin: 20px auto;"/>
             <h1>Diagnóstico</h1>
         </div>
     </div>
@@ -40,14 +40,16 @@ function metrica_real_admin_page() {
                 //Check if current domain is registered
                 if ( false === ( $ping_result = get_transient( 'metrica_real_ping' ) ) ) {
 
-                    $ping_result = @file_get_contents('https://app.metricareal.com.br/?ping='. urlencode(get_home_url()));
-                    if ($ping_result && trim($ping_result) == 'PONG') {
+                    $ping_result = new WP_Http();
+                    $ping_result = $ping_result->get('https://app.metricareal.com.br/?ping='. urlencode(get_home_url()));
+                    if (!is_wp_error( $ping_result ) && isset($ping_result['body']) && trim($ping_result['body']) == 'PONG') {
                         set_transient( 'metrica_real_ping', 'PONG', 86400 );
+                        $ping_result = 'PONG';
                     }
                     
                 }
                 ?>
-                <div id="metrica-real-ping" class="health-check-accordion">
+                <div id="metrica-real-ping" class="health-check-accordion" style="margin-bottom: 20px;">
                     <h4 class="health-check-accordion-heading">
                         <button aria-expanded="true" class="health-check-accordion-trigger" aria-controls="metrica-real-ping-result" type="button">
                             <span class="title">Domínio Registrado</span>
@@ -63,8 +65,8 @@ function metrica_real_admin_page() {
                         <?php if ($ping_result == 'PONG') : ?>
                             <p>Tudo certo! O domínio do seu site está registrado em nosso sistema. Já instalamos o script no seu site.</p>
                         <?php else : ?>
-                            <p>Não conseguimos validar o seu domínio em nosso sistema. Caso seu cadastro tenha sido feito nos últimos 10 minutos, pedimos que aguarde. Caso contrário, por favor entre em contato com o suporte do Métrica Real e informe o endereço do seu site corretamente: <?php echo get_home_url(); ?>.</p>
-                            <?php if (isset($_GET['debug'])) echo '<pre>'. var_dump($http_response_header, $ping_result) . '</pre>'; ?>
+                            <p>Não conseguimos validar o seu domínio em nosso sistema. Caso seu cadastro tenha sido feito nos últimos 10 minutos, pedimos que aguarde. Caso contrário, por favor entre em contato com o suporte do Métrica Real e informe o endereço do seu site corretamente: <?php echo get_home_url(); ?></p>
+                            <?php if (isset($_GET['debug'])) echo '<pre>'. var_dump($ping_result) . '</pre>'; ?>
                         <?php endif; ?>
             
                     </div>
@@ -85,7 +87,7 @@ function metrica_real_admin_page() {
                     }
                 }
                 ?>
-                <div id="metrica-real-amp" class="health-check-accordion">
+                <div id="metrica-real-amp" class="health-check-accordion" style="margin-bottom: 20px;">
                     <h4 class="health-check-accordion-heading">
                         <button aria-expanded="true" class="health-check-accordion-trigger" aria-controls="metrica-real-amp-result" type="button">
                             <span class="title">AMP</span>
@@ -121,7 +123,7 @@ function metrica_real_admin_page() {
                     }
                 }
                 ?>
-                <div id="metrica-real-webstory" class="health-check-accordion">
+                <div id="metrica-real-webstory" class="health-check-accordion" style="margin-bottom: 20px;">
                     <h4 class="health-check-accordion-heading">
                         <button aria-expanded="true" class="health-check-accordion-trigger" aria-controls="metrica-real-webstory-result" type="button">
                             <span class="title">Web Stories</span>
@@ -142,6 +144,8 @@ function metrica_real_admin_page() {
                         <?php endif; ?>
                     </div>
                 </div>
+
+                <div style="text-align: center;"><a href="<?php echo admin_url( 'tools.php?page=metrica-real&debug' ); ?>"><small>Ver Dados Avançados</small></div>
 
             </div>
         </div>
