@@ -76,7 +76,7 @@ function metrica_real_admin_page() {
                 //Check if any AMP plugin is installed
                 $plugins = array(
                     'amp/amp.php' => 'AMP Oficial',
-                    'accelerated-moblie-pages/accelerated-moblie-pages.php' => 'AMP for WP',
+                    'accelerated-mobile-pages/accelerated-mobile-pages.php' => 'AMP for WP',
                     'amp-wp/amp-wp.php' => 'AMP WP',
                 );
                 $has_plugin = false;
