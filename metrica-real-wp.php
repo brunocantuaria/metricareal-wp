@@ -23,7 +23,7 @@ add_action('admin_menu', 'metrica_real_admin_setup');
 
 function metrica_real_admin_page() {
 
-    $debug = (isset($_GET['debug'])) ? wp_verify_nonce( $_GET['debug'], 'metricareal' ) : false;
+    $debug = (isset($_GET['debug'])) ? wp_verify_nonce( sanitize_text_field(wp_unslash($_GET['debug'])), 'metricareal' ) : false;
     $debug_nonce = wp_create_nonce( 'metricareal' );
 
     ?>
