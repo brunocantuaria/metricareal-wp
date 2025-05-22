@@ -6,7 +6,9 @@
  Author: Cantuaria Sites
  Author URI: https://www.cantuaria.net.br
  Version: 1.0
- */
+ License: GPLv2 or later
+ License URI: http://www.gnu.org/licenses/gpl-2.0.html
+*/
  
 
 /*
@@ -21,10 +23,13 @@ add_action('admin_menu', 'metrica_real_admin_setup');
 
 function metrica_real_admin_page() {
 
+    $debug = (isset($_GET['debug'])) ? wp_verify_nonce( $_GET['debug'], 'metricareal' ) : false;
+    $debug_nonce = wp_create_nonce( 'metricareal' );
+
     ?>
     <div class="health-check-header metrica-real">
         <div class="health-check-title-section" style="flex-direction: column">
-            <img src="<?php echo plugin_dir_url( __FILE__ ); ?>/assets/img/logo.png" width="300" alt="Métrica Real" style="margin: 20px auto;"/>
+            <img src="<?php echo esc_url(plugin_dir_url( __FILE__ )); ?>/assets/img/logo.png" width="300" alt="Métrica Real" style="margin: 20px auto;"/>
             <h1>Diagnóstico</h1>
         </div>
     </div>
@@ -65,8 +70,10 @@ function metrica_real_admin_page() {
                         <?php if ($ping_result == 'PONG') : ?>
                             <p>Tudo certo! O domínio do seu site está registrado em nosso sistema. Já instalamos o script no seu site.</p>
                         <?php else : ?>
-                            <p>Não conseguimos validar o seu domínio em nosso sistema. Caso seu cadastro tenha sido feito nos últimos 10 minutos, pedimos que aguarde. Caso contrário, por favor entre em contato com o suporte do Métrica Real e informe o endereço do seu site corretamente: <?php echo get_home_url(); ?></p>
-                            <?php if (isset($_GET['debug'])) echo '<pre>'. var_dump($ping_result) . '</pre>'; ?>
+                            <p>Não conseguimos validar o seu domínio em nosso sistema. Caso seu cadastro tenha sido feito nos últimos 10 minutos, pedimos que aguarde. Caso contrário, por favor entre em contato com o suporte do Métrica Real e informe o endereço do seu site corretamente: <?php echo esc_url(get_home_url()); ?></p>
+                            <?php if ($debug) : ?>
+                                <pre><?php echo esc_js(json_encode($ping_result)); ?></pre>
+                            <?php endif; ?>
                         <?php endif; ?>
             
                     </div>
@@ -101,10 +108,12 @@ function metrica_real_admin_page() {
                     </h4>
                     <div id="metrica-real-amp-result" class="health-check-accordion-panel">
                         <?php if ($has_plugin) : ?>
-                            <p>Tudo certo! Vimos que você utiliza o plugin <?php echo $plugin_name; ?>. Já adicionamos nosso script à suas páginas AMP.</p>
+                            <p>Tudo certo! Vimos que você utiliza o plugin <?php echo esc_html($plugin_name); ?>. Já adicionamos nosso script à suas páginas AMP.</p>
                         <?php else : ?>
                             <p>Não encontramos nenhum plugin de AMP instalado em seu site. Caso você utilize algum, por favor entre em contato com o suporte e informe o nome do plugin utilizado.</p>
-                            <?php if (isset($_GET['debug'])) echo '<pre>'. var_dump(get_plugins()) . '</pre>'; ?>
+                            <?php if ($debug) : ?>
+                                <pre><?php echo esc_js(json_encode(get_plugins())); ?></pre>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -137,15 +146,17 @@ function metrica_real_admin_page() {
                     </h4>
                     <div id="metrica-real-webstory-result" class="health-check-accordion-panel">
                         <?php if ($has_plugin) : ?>
-                            <p>Tudo certo! Vimos que você utiliza o plugin <?php echo $plugin_name; ?>. Já adicionamos nosso script à suas páginas de Web Stories.</p>
+                            <p>Tudo certo! Vimos que você utiliza o plugin <?php echo esc_html($plugin_name); ?>. Já adicionamos nosso script à suas páginas de Web Stories.</p>
                         <?php else : ?>
                             <p>Não encontramos nenhum plugin de Web Story instalado em seu site. Caso você utilize algum, por favor entre em contato com o suporte e informe o nome do plugin utilizado.</p>
-                            <?php if (isset($_GET['debug'])) echo '<pre>'. var_dump(get_plugins()) . '</pre>'; ?>
+                            <?php if ($debug) : ?>
+                                <pre><?php echo esc_js(json_encode(get_plugins())); ?></pre>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </div>
 
-                <div style="text-align: center;"><a href="<?php echo admin_url( 'tools.php?page=metrica-real&debug' ); ?>"><small>Ver Dados Avançados</small></div>
+                <div style="text-align: center;"><a href="<?php echo esc_url(admin_url( 'tools.php?page=metrica-real&debug' )); ?>"><small>Ver Dados Avançados</small></div>
 
             </div>
         </div>
