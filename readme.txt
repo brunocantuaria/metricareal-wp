@@ -2,7 +2,7 @@
 Contributors: cantuaria
 Donate link: 
 Tags: analytics, metricareal
-Requires at least: 3.0.0
+Requires at least: 6.0
 Tested up to: 6.8
 Stable tag: 1.0
 License: GPLv2 or later
@@ -23,6 +23,14 @@ O plugin também se integra aos principais plugins de AMP e Web Stories disponí
 *   AMP WP
 *   Web Stories do Google
 *   MakeStories
+
+== External services ==
+
+Este plugin envia para a API do Métrica Real, um ID randômico gerado para cada visitante do seu site e a página que ele está visitando, através do próprio navegador do usuário. Essas informações são usadas para medir a audiência do seu site. 
+
+Enviamos essas informações a cada visualização de página realizada pelos usuários do seu site.
+
+Esse serviço é fornecido pela empresa Cantuária Sites (https://cantuaria.net.br) através do seu produto Métrica Real (https://metricareal.com.br), respeitando as práticas que especificamentos em nossa Política de Privacidade (https://metricareal.com.br/privacidade.html).
 
 == Installation ==
 

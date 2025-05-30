@@ -6,6 +6,8 @@
  Author: Cantuaria Sites
  Author URI: https://www.cantuaria.net.br
  Version: 1.0
+ Requires at least: 6.0
+ Tested up to: 6.8
  License: GPLv2 or later
  License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
