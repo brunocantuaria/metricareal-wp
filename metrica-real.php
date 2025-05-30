@@ -31,7 +31,7 @@ function metrica_real_admin_page() {
     ?>
     <div class="health-check-header metrica-real">
         <div class="health-check-title-section" style="flex-direction: column">
-            <img src="<?php echo esc_url(plugin_dir_url( __FILE__ )); ?>/assets/img/logo.png" width="300" alt="Métrica Real" style="margin: 20px auto;"/>
+            <a href="https://metricareal.com.br/" target="_blank"><img src="<?php echo esc_url(plugin_dir_url( __FILE__ )); ?>/assets/img/logo.png" width="300" alt="Métrica Real" style="margin: 20px auto;"/></a>
             <h1>Diagnóstico</h1>
         </div>
     </div>
