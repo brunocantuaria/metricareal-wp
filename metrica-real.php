@@ -5,7 +5,7 @@
  Description: Plugin oficial do Métrica Real para instalação do script de nosso serviço em seu website.
  Author: Cantuaria Sites
  Author URI: https://www.cantuaria.net.br
- Version: 1.0
+ Version: 1.1
  Requires at least: 6.0
  Tested up to: 6.8
  License: GPLv2 or later
@@ -183,7 +183,7 @@ add_filter('ms_story_html', 'metrica_real_in_amp_custom'); //MakeStories
 
 function metrica_real_in_theme() {
     ?>
-    <script data-cfasync="false" data-no-optimize="1" data-no-defer="1">(function(){for(var e="",t=window.location.hostname,n="https://app.metricareal.com.br/",o=new Date,i="mruuid=",a=document.cookie.split(";"),r=0;r<a.length;r++){var c=a[r].trim();if(0==c.indexOf(i)){e=c.substring(i.length,c.length);break}}""==e&&(e="ampno-"+o.getTime()+"."+Math.round(8999*Math.random()+1e3)+Math.round(8999*Math.random()+1e3),document.cookie=i+e+";"+t+"; path=/"),window.metricaReal=function(t){if(void 0===t&&(t=""),t=t.trim(),""==t){var o=document.querySelector("link[rel='canonical']");t=o?o.getAttribute("href"):window.location.href}var i=n,a=new XMLHttpRequest,r=new Image(1,1);i+="?uuid="+e,i+="&page="+encodeURIComponent(t),a.timeout=2e3,a.open("GET",i,!0),a.onreadystatechange=function(){4!==this.readyState||this.status>=200&&this.status<300||(r.src=i+"&image=1")},a.ontimeout=function(){r.src=i+"&image=1"},a.send(null)},metricaReal()})();</script>
+    <script data-cfasync="false" data-no-optimize="1" data-no-defer="1">(function(){for(var e="",t="https://app.metricareal.com.br/",n=new Date,o="mruuid=",a=document.cookie.split(";"),i=0;i<a.length;i++){var r=a[i].trim();if(0==r.indexOf(o)){e=r.substring(o.length,r.length);break}}""==e&&(e="ampno-"+n.getTime()+"."+Math.round(8999*Math.random()+1e3)+Math.round(8999*Math.random()+1e3),document.cookie=o+e+"; path=/; SameSite=Strict; Secure"),window.metricaReal=function(n){if(void 0===n&&(n=""),n=n.trim(),""==n){var o=document.querySelector("link[rel='canonical']");n=o?o.getAttribute("href"):window.location.href}var a=t;a+="?uuid="+e,a+="&page="+encodeURIComponent(n);const i=new AbortController,r=setTimeout(()=>i.abort(),3e4);fetch(a,{signal:i.signal}).catch(()=>{const e=new Image(1,1);e.src=a+"&image=1"}).finally(()=>clearTimeout(r))},metricaReal()})();</script>
     <?php
 }
 add_action( 'wp_head', 'metrica_real_in_theme' );

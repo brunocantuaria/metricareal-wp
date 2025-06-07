@@ -30,7 +30,7 @@ Este plugin envia para a API do Métrica Real, um ID randômico gerado para cada
 
 Enviamos essas informações a cada visualização de página realizada pelos usuários do seu site.
 
-Esse serviço é fornecido pela empresa Cantuária Sites (https://cantuaria.net.br) através do seu produto Métrica Real (https://metricareal.com.br), respeitando as práticas que especificamentos em nossa Política de Privacidade (https://metricareal.com.br/privacidade.html).
+Esse serviço é fornecido pela empresa Cantuária Sites (https://cantuaria.net.br) através do seu produto Métrica Real (https://metricareal.com.br), respeitando as práticas que especificamos em nossa Política de Privacidade (https://metricareal.com.br/privacidade.html).
 
 == Installation ==
 
@@ -61,10 +61,16 @@ No momento, apenas sites convidados podem utilizar o serviço do Métrica Real. 
 
 == Changelog ==
 
+= 1.1 =
+* Nova versão aprimorada do script de coleta
+
 = 1.0 =
 * Primeira versão pública
 
 == Upgrade Notice ==
+
+= 1.1 =
+* Nova versão aprimorada do script de coleta
 
 = 1.0 =
 * Primeira versão pública
